@@ -1,7 +1,4 @@
-- name: Copy backend config file
-  copy:
-    src: backend.service
-    dest: /etc/systemd/system/backend.service
+
 
 - name: remove old content
   file:

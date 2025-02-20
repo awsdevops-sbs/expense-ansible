@@ -14,6 +14,11 @@
   user:
     name: expense
 
+- name: Copy backend config file
+  copy:
+    src: backend.service
+    dest: /etc/systemd/system/backend.service
+
 - name: import common role
   import_role:
     name: common
