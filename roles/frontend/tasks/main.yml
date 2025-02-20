@@ -1,9 +1,5 @@
 #SPDX-License-Identifier: MIT-0
 ---
-- name: install nginx and configuration # tasks file for frontend
-  hosts: all
-  become: true
-
   tasks:
     - name: install nginx
       dnf:
