@@ -1,0 +1,6 @@
+---
+- name: backend configuration # tasks file for frontend
+  hosts: all
+  become: true
+  roles:
+    - backend

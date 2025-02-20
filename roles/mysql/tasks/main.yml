@@ -1,3 +1,31 @@
-#SPDX-License-Identifier: MIT-0
----
-# tasks file for mysql
+- name: Installing nodejs
+  dnf:
+    name: mysql-server
+    state: present
+
+
+- name: check the DB connection
+  community.mysql.mysql_db:
+
+
+- name: Retrieve MySQL Server Info
+  community.mysql.mysql_info:
+    login_host: mysql-dev.awsdevops.sbs
+    login_user: root
+    login_password: ExpenseApp@1
+    filter: version  # Fetch only version info
+    register: mysql_info
+
+- name: Setting up the password
+  shell: mysql_secure_installation --set-root-pass ExpenseApp@1
+
+- name: Start the mysql service
+  service:
+    name: mysqld
+    state: started
+    enabled: yes
+
+
+
+
+

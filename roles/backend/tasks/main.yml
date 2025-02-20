@@ -1,3 +1,76 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# tasks file for backend
+- name: Disable current module
+  shell: dnf module disable nodejs -y
+
+- name: Enable the nodejs version 20
+  shell: dnf module enable nodejs:20 -y
+
+- name: Installing nodejs
+  dnf:
+    name: nodejs
+    state: present
+
+- name: Add application user
+  user:
+    name: expense
+
+- name: Copy backend config file
+  copy:
+    src: backend.service
+    dest: /etc/systemd/system/backend.service
+
+- name: remove old content
+  file:
+    path: /app
+    state: absent
+
+- name: Create the directory
+  file:
+    path: /app
+    state: directory
+
+- name: Download backend components
+  get_url:
+    url: https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip
+    dest: /tmp/backend.zip
+
+- name: Extract the ZIP file
+  unarchive:
+    src: /tmp/backend.zip
+    dest: /app
+    remote_src: yes
+
+- name: download .nodejs Dependencies
+  community.general.npm:
+    path: /app
+    state: latest
+
+
+- name: Install PyMySQL using pip
+  pip:
+    name:
+      - pymysql
+    state: present
+
+# Import of sql script with encoding option
+- name: Load sechma
+  community.mysql.mysql_db:
+    state: import
+    name: all
+    target: /app/schema/backend.sql
+    login_host: mysql-dev.awsdevops.sbs
+    login_user: root
+    login_password: ExpenseApp@1
+
+
+- name: Start the backend service
+  service:
+    name: backend
+    state: started
+    enabled: yes
+    daemon-reload: yes
+
+
+
+
+
