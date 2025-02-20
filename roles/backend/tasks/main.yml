@@ -53,6 +53,11 @@
       - cryptography
     state: present
 
+- name: Install MySQL Client
+  dnf:
+    name: mysql
+    state: installed
+
 # Import of sql script with encoding option
 - name: Load sechma
   community.mysql.mysql_db:
