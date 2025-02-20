@@ -1,43 +1,42 @@
 #SPDX-License-Identifier: MIT-0
----
-  tasks:
-    - name: install nginx
-      dnf:
-        name: nginx
-        state: present
 
-    - name: copy the conf file
-      copy:
-        src: expense.conf
-        dest: /etc/nginx/default.d/expense.conf
+  - name: install nginx
+    dnf:
+      name: nginx
+      state: present
 
-    - name: remove old content
-      file:
-        path: /usr/share/nginx/html
-        state: absent
+  - name: copy the conf file
+    copy:
+      src: expense.conf
+      dest: /etc/nginx/default.d/expense.conf
 
-    - name: Create the directory
-      file:
-        path: /usr/share/nginx/html
-        state: directory
+  - name: remove old content
+    file:
+      path: /usr/share/nginx/html
+      state: absent
 
-    - name: Download frontend components
-      get_url:
-        url: https://expense-artifacts.s3.amazonaws.com/expense-frontend-v2.zip
-        dest: /tmp/frontend.zip
+  - name: Create the directory
+    file:
+      path: /usr/share/nginx/html
+      state: directory
 
-    - name: Extract the ZIP file
-      unarchive:
-        src: /tmp/frontend.zip
-        dest: /usr/share/nginx/html
-        remote_src: yes
+  - name: Download frontend components
+    get_url:
+      url: https://expense-artifacts.s3.amazonaws.com/expense-frontend-v2.zip
+      dest: /tmp/frontend.zip
 
-  
-    - name: Start the nginx service
-      service:
-        name: nginx
-        state: installed
-        enabled: yes
-  
+  - name: Extract the ZIP file
+    unarchive:
+      src: /tmp/frontend.zip
+      dest: /usr/share/nginx/html
+      remote_src: yes
+
+
+  - name: Start the nginx service
+    service:
+      name: nginx
+      state: installed
+      enabled: yes
+
 
 
