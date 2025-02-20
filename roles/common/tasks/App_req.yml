@@ -1,0 +1,25 @@
+- name: Copy backend config file
+  copy:
+    src: backend.service
+    dest: /etc/systemd/system/backend.service
+
+- name: remove old content
+  file:
+    path: "{{ app_dir }}"
+    state: absent
+
+- name: Create the directory
+  file:
+    path: "{{ app_dir }}"
+    state: directory
+
+- name: Download backend components
+  get_url:
+    url: https://expense-artifacts.s3.amazonaws.com/expense-{{ component }}-v2.zip
+    dest: /tmp/backend.zip
+
+- name: Extract the ZIP file
+  unarchive:
+    src: /tmp/backend.zip
+    dest: "{{ app_dir }}"
+    remote_src: yes

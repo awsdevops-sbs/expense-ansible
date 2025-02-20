@@ -10,26 +10,10 @@
       src: expense.conf
       dest: /etc/nginx/default.d/expense.conf
 
-  - name: remove old content
-    file:
-      path: /usr/share/nginx/html
-      state: absent
-
-  - name: Create the directory
-    file:
-      path: /usr/share/nginx/html
-      state: directory
-
-  - name: Download frontend components
-    get_url:
-      url: https://expense-artifacts.s3.amazonaws.com/expense-frontend-v2.zip
-      dest: /tmp/frontend.zip
-
-  - name: Extract the ZIP file
-    unarchive:
-      src: /tmp/frontend.zip
-      dest: /usr/share/nginx/html
-      remote_src: yes
+  - name: import common role
+    import_role:
+      name: common
+      tasks_from: App_req
 
 
   - name: Start the nginx service
