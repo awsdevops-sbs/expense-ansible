@@ -50,6 +50,7 @@
   pip:
     name:
       - pymysql
+      - cryptography
     state: present
 
 # Import of sql script with encoding option
