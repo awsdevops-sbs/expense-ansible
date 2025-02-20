@@ -3,6 +3,11 @@
     name: mysql-server
     state: present
 
+- name: Install PyMySQL using pip
+  pip:
+    name:
+      - pymysql
+    state: present
 
 - name: Retrieve MySQL Server Info
   community.mysql.mysql_info:
