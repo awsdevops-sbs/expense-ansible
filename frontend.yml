@@ -2,4 +2,5 @@
 - name: install nginx and configurations # tasks file for frontend
   hosts: all
   become: true
-  roles: frontend
+  roles:
+    - frontend
