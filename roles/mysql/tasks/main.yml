@@ -4,10 +4,6 @@
     state: present
 
 
-- name: check the DB connection
-  community.mysql.mysql_db:
-
-
 - name: Retrieve MySQL Server Info
   community.mysql.mysql_info:
     login_host: mysql-dev.awsdevops.sbs
