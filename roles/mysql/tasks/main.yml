@@ -10,7 +10,7 @@
       - cryptography
     state: present
 
-- name: Retrieve MySQL Server Info
+- name: check MySQL Server Info
   community.mysql.mysql_info:
     login_host: mysql-dev.awsdevops.sbs
     login_user: root
@@ -22,6 +22,7 @@
 
 - name: Setting up the password
   shell: mysql_secure_installation --set-root-pass ExpenseApp@1
+  when: mysql_connection_output.failed is true
 
 - name: Start the mysql service
   service:

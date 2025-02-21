@@ -15,7 +15,7 @@
     name: expense
 
 - name: Copy backend config file
-  copy:
+  template:
     src: backend.service
     dest: /etc/systemd/system/backend.service
 

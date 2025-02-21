@@ -1,6 +1,0 @@
----
-- name: mysql configuration # tasks file for frontend
-  hosts: all
-  become: true
-  roles:
-    - mysql
