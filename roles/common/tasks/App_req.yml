@@ -1,4 +1,5 @@
-
+- name: set the prompt
+  shell: set-prompt {{ component }} - {{ dev }}
 
 - name: remove old content
   file:
