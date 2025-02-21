@@ -1,2 +1,2 @@
 - name: set the prompt
-  shell: set-prompt {{ component }}-{{ dev }}
+  shell: 'set-prompt {{ component }}-{{ dev }}'
