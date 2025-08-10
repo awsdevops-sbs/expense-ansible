@@ -39,7 +39,7 @@
 
 - name: Install MySQL Client
   dnf:
-    name: mysql
+    name: mysql.yml
     state: installed
 
 # Import of sql script with encoding option
@@ -50,7 +50,7 @@
     target: /app/schema/backend.sql
     login_user: root
     login_password: ExpenseApp@1
-    login_host: mysql-dev.awsdevops.sbs
+    login_host: mysql.yml-dev.awsdevops.sbs
 
 
 - name: Start the backend service
